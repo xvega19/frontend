@@ -1,0 +1,68 @@
+<div class="container" style="margin-bottom: 2%;;">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Registrar Proveedor</div>
+        <div class="card-body">
+            <form #proveedorForm="ngForm" (submit)="saveProveedor(proveedorForm)">
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <input type="text" name="name" [(ngModel)]="proveedorDTO.nombre" id="name" class="form-control"
+                            placeholder="name" required="true">
+                        <label for="name">Nombre</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input type="text" name="phone" [(ngModel)]="proveedorDTO.telefono" id="phone"
+                                    class="form-control" placeholder="phone" required="true" autofocus="autofocus">
+                                <label for="phone">Teléfono</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input type="text" name="address" [(ngModel)]="proveedorDTO.direccion" id="address"
+                                    class="form-control" placeholder="address" required="true">
+                                <label for="address">Dirección</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary btn-block" (click)="saveProveedor(proveedorForm)">Registrar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<p-table *ngIf="proveedores!=null; else emptymessage" [value]="proveedores" [rows]="5" [paginator]="true">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Fecha registro</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Actualizar</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-proveedor>
+        <tr>
+            <td>{{proveedor.id}}</td>
+            <td>{{proveedor.nombre}}</td>
+            <td>{{proveedor.fecha_registro | date:'dd/MM/yy'}}</td>
+            <td>{{proveedor.direccion}}</td>
+            <td>{{proveedor.telefono}}</td>
+            <td style="text-align: center;"><button title="Actualizar" (click)="edit(proveedor)"
+                    class="btn btn-primary margin">
+                    <i class="fa fa-eye"></i>
+                </button></td>
+        </tr>
+    </ng-template>
+</p-table>
+<ng-template pTemplate="emptymessage">
+    <p>No records found</p>
+</ng-template>
